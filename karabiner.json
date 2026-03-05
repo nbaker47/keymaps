@@ -3,38 +3,100 @@
     {
       "name": "Default profile",
       "selected": true,
-      "virtual_hid_keyboard": {
-        "keyboard_type_v2": "ansi"
-      },
+      "virtual_hid_keyboard": { "keyboard_type_v2": "ansi" },
       "complex_modifications": {
         "rules": [
           {
-            "description": "Left Cmd tap = Backspace; Hold Right Option = Nav Mode (ESDF Arrows + L/; modifiers)",
+            "description": "Semicolon Nav Layer: Mods, Arrows, Tab, and Escape",
             "manipulators": [
+              /* --- 1. LAYER ACTIVATION --- */
               {
-                "description": "Tap Left Command alone for Backspace",
+                "description": "Hold Semicolon for Nav Mode",
                 "from": {
-                  "key_code": "left_command",
-                  "modifiers": { "optional": ["any"] }
-                },
-                "to": [{ "key_code": "left_command" }],
-                "to_if_alone": [{ "key_code": "delete_or_backspace" }],
-                "type": "basic"
-              },
-              {
-                "description": "Hold Right Option to activate Nav Mode",
-                "from": {
-                  "key_code": "right_option",
+                  "key_code": "semicolon",
                   "modifiers": { "optional": ["any"] }
                 },
                 "to": [{ "set_variable": { "name": "nav_mode", "value": 1 } }],
                 "to_after_key_up": [
                   { "set_variable": { "name": "nav_mode", "value": 0 } }
                 ],
+                "to_if_alone": [{ "key_code": "semicolon" }],
+                "type": "basic"
+              },
+              /* --- 2. NAV MAPPINGS (Only active when nav_mode is 1) --- */
+
+              /* Left Hand: Tab and Escape */
+              {
+                "conditions": [
+                  { "name": "nav_mode", "type": "variable_if", "value": 1 }
+                ],
+                "from": {
+                  "key_code": "a",
+                  "modifiers": { "optional": ["any"] }
+                },
+                "to": [{ "key_code": "tab" }],
                 "type": "basic"
               },
               {
-                "description": "Nav Mode: E → Up, S → Left, D → Down, F → Right",
+                "conditions": [
+                  { "name": "nav_mode", "type": "variable_if", "value": 1 }
+                ],
+                "from": {
+                  "key_code": "c",
+                  "modifiers": { "optional": ["any"] }
+                },
+                "to": [{ "key_code": "escape" }],
+                "type": "basic"
+              },
+
+              /* Right Hand: Modifiers */
+              {
+                "conditions": [
+                  { "name": "nav_mode", "type": "variable_if", "value": 1 }
+                ],
+                "from": {
+                  "key_code": "k",
+                  "modifiers": { "optional": ["any"] }
+                },
+                "to": [{ "key_code": "left_command" }],
+                "type": "basic"
+              },
+              {
+                "conditions": [
+                  { "name": "nav_mode", "type": "variable_if", "value": 1 }
+                ],
+                "from": {
+                  "key_code": "j",
+                  "modifiers": { "optional": ["any"] }
+                },
+                "to": [{ "key_code": "left_shift" }],
+                "type": "basic"
+              },
+              {
+                "conditions": [
+                  { "name": "nav_mode", "type": "variable_if", "value": 1 }
+                ],
+                "from": {
+                  "key_code": "l",
+                  "modifiers": { "optional": ["any"] }
+                },
+                "to": [{ "key_code": "left_option" }],
+                "type": "basic"
+              },
+              {
+                "conditions": [
+                  { "name": "nav_mode", "type": "variable_if", "value": 1 }
+                ],
+                "from": {
+                  "key_code": "h",
+                  "modifiers": { "optional": ["any"] }
+                },
+                "to": [{ "key_code": "left_control" }],
+                "type": "basic"
+              },
+
+              /* Left Hand: Arrows (ESDF) */
+              {
                 "conditions": [
                   { "name": "nav_mode", "type": "variable_if", "value": 1 }
                 ],
@@ -46,7 +108,6 @@
                 "type": "basic"
               },
               {
-                "description": "Nav Mode: S → Left",
                 "conditions": [
                   { "name": "nav_mode", "type": "variable_if", "value": 1 }
                 ],
@@ -58,7 +119,6 @@
                 "type": "basic"
               },
               {
-                "description": "Nav Mode: D → Down",
                 "conditions": [
                   { "name": "nav_mode", "type": "variable_if", "value": 1 }
                 ],
@@ -70,7 +130,6 @@
                 "type": "basic"
               },
               {
-                "description": "Nav Mode: F → Right",
                 "conditions": [
                   { "name": "nav_mode", "type": "variable_if", "value": 1 }
                 ],
@@ -81,40 +140,16 @@
                 "to": [{ "key_code": "right_arrow" }],
                 "type": "basic"
               },
+
+              /* --- 3. MISC --- */
               {
-                "description": "Nav Mode: L → Shift",
-                "conditions": [
-                  { "name": "nav_mode", "type": "variable_if", "value": 1 }
-                ],
+                "description": "Tap Left Command alone for Backspace",
                 "from": {
-                  "key_code": "l",
-                  "modifiers": { "optional": ["any"] }
-                },
-                "to": [{ "key_code": "left_shift" }],
-                "type": "basic"
-              },
-              {
-                "description": "Nav Mode: ; → Command",
-                "conditions": [
-                  { "name": "nav_mode", "type": "variable_if", "value": 1 }
-                ],
-                "from": {
-                  "key_code": "semicolon",
+                  "key_code": "left_command",
                   "modifiers": { "optional": ["any"] }
                 },
                 "to": [{ "key_code": "left_command" }],
-                "type": "basic"
-              },
-              {
-                "description": "Nav Mode: ' → Option",
-                "conditions": [
-                  { "name": "nav_mode", "type": "variable_if", "value": 1 }
-                ],
-                "from": {
-                  "key_code": "quote",
-                  "modifiers": { "optional": ["any"] }
-                },
-                "to": [{ "key_code": "left_option" }],
+                "to_if_alone": [{ "key_code": "delete_or_backspace" }],
                 "type": "basic"
               }
             ]
