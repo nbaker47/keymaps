@@ -1,0 +1,126 @@
+{
+  "profiles": [
+    {
+      "name": "Default profile",
+      "selected": true,
+      "virtual_hid_keyboard": {
+        "keyboard_type_v2": "ansi"
+      },
+      "complex_modifications": {
+        "rules": [
+          {
+            "description": "Left Cmd tap = Backspace; Hold Right Option = Nav Mode (ESDF Arrows + L/; modifiers)",
+            "manipulators": [
+              {
+                "description": "Tap Left Command alone for Backspace",
+                "from": {
+                  "key_code": "left_command",
+                  "modifiers": { "optional": ["any"] }
+                },
+                "to": [{ "key_code": "left_command" }],
+                "to_if_alone": [{ "key_code": "delete_or_backspace" }],
+                "type": "basic"
+              },
+              {
+                "description": "Hold Right Option to activate Nav Mode",
+                "from": {
+                  "key_code": "right_option",
+                  "modifiers": { "optional": ["any"] }
+                },
+                "to": [{ "set_variable": { "name": "nav_mode", "value": 1 } }],
+                "to_after_key_up": [
+                  { "set_variable": { "name": "nav_mode", "value": 0 } }
+                ],
+                "type": "basic"
+              },
+              {
+                "description": "Nav Mode: E → Up, S → Left, D → Down, F → Right",
+                "conditions": [
+                  { "name": "nav_mode", "type": "variable_if", "value": 1 }
+                ],
+                "from": {
+                  "key_code": "e",
+                  "modifiers": { "optional": ["any"] }
+                },
+                "to": [{ "key_code": "up_arrow" }],
+                "type": "basic"
+              },
+              {
+                "description": "Nav Mode: S → Left",
+                "conditions": [
+                  { "name": "nav_mode", "type": "variable_if", "value": 1 }
+                ],
+                "from": {
+                  "key_code": "s",
+                  "modifiers": { "optional": ["any"] }
+                },
+                "to": [{ "key_code": "left_arrow" }],
+                "type": "basic"
+              },
+              {
+                "description": "Nav Mode: D → Down",
+                "conditions": [
+                  { "name": "nav_mode", "type": "variable_if", "value": 1 }
+                ],
+                "from": {
+                  "key_code": "d",
+                  "modifiers": { "optional": ["any"] }
+                },
+                "to": [{ "key_code": "down_arrow" }],
+                "type": "basic"
+              },
+              {
+                "description": "Nav Mode: F → Right",
+                "conditions": [
+                  { "name": "nav_mode", "type": "variable_if", "value": 1 }
+                ],
+                "from": {
+                  "key_code": "f",
+                  "modifiers": { "optional": ["any"] }
+                },
+                "to": [{ "key_code": "right_arrow" }],
+                "type": "basic"
+              },
+              {
+                "description": "Nav Mode: L → Shift",
+                "conditions": [
+                  { "name": "nav_mode", "type": "variable_if", "value": 1 }
+                ],
+                "from": {
+                  "key_code": "l",
+                  "modifiers": { "optional": ["any"] }
+                },
+                "to": [{ "key_code": "left_shift" }],
+                "type": "basic"
+              },
+              {
+                "description": "Nav Mode: ; → Command",
+                "conditions": [
+                  { "name": "nav_mode", "type": "variable_if", "value": 1 }
+                ],
+                "from": {
+                  "key_code": "semicolon",
+                  "modifiers": { "optional": ["any"] }
+                },
+                "to": [{ "key_code": "left_command" }],
+                "type": "basic"
+              },
+              {
+                "description": "Nav Mode: ' → Option",
+                "conditions": [
+                  { "name": "nav_mode", "type": "variable_if", "value": 1 }
+                ],
+                "from": {
+                  "key_code": "quote",
+                  "modifiers": { "optional": ["any"] }
+                },
+                "to": [{ "key_code": "left_option" }],
+                "type": "basic"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}
