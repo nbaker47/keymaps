@@ -7,9 +7,19 @@
       "complex_modifications": {
         "rules": [
           {
-            "description": "Semicolon Nav Layer: Mods, Arrows, Tab, and Escape",
+            "description": "Caps Lock to Control, Nav Layer (Semicolon), and CMD-to-Backspace",
             "manipulators": [
-              /* --- 1. LAYER ACTIVATION --- */
+              /* --- 1. GLOBAL: CAPS LOCK TO CONTROL --- */
+              {
+                "description": "Change Caps Lock to Left Control",
+                "from": {
+                  "key_code": "caps_lock",
+                  "modifiers": { "optional": ["any"] }
+                },
+                "to": [{ "key_code": "left_control" }],
+                "type": "basic"
+              },
+              /* --- 2. LAYER ACTIVATION --- */
               {
                 "description": "Hold Semicolon for Nav Mode",
                 "from": {
@@ -23,7 +33,7 @@
                 "to_if_alone": [{ "key_code": "semicolon" }],
                 "type": "basic"
               },
-              /* --- 2. NAV MAPPINGS (Only active when nav_mode is 1) --- */
+              /* --- 3. NAV MAPPINGS (Only active when nav_mode is 1) --- */
 
               /* Left Hand: Tab and Escape */
               {
@@ -141,7 +151,7 @@
                 "type": "basic"
               },
 
-              /* --- 3. MISC --- */
+              /* --- 4. MISC --- */
               {
                 "description": "Tap Left Command alone for Backspace",
                 "from": {
