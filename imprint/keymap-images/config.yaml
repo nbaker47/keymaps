@@ -1,0 +1,24 @@
+parse_config:
+  raw_binding_map:
+    "&bootloader": "Boot"
+    "&studio_unlock": "Unlock"
+    "&mmv MOVE_UP": "Ptr ↑"
+    "&mmv MOVE_DOWN": "Ptr ↓"
+    "&mmv MOVE_LEFT": "Ptr ←"
+    "&mmv MOVE_RIGHT": "Ptr →"
+    "&msc SCRL_UP": "Scroll ↑"
+    "&msc SCRL_DOWN": "Scroll ↓"
+    "&msc SCRL_LEFT": "Scroll ←"
+    "&msc SCRL_RIGHT": "Scroll →"
+    "&mkp LCLK": "L-Click"
+    "&mkp RCLK": "R-Click"
+    "&bt BT_CLR": "BT clr"
+  zmk_keycode_map:
+    C_VOLUME_UP: "Vol +"
+    C_VOLUME_DOWN: "Vol −"
+    C_AC_ZOOM_IN: "Zoom +"
+    C_AC_ZOOM_OUT: "Zoom −"
+draw_config:
+  key_w: 70
+  key_h: 66
+  small_pad: 3
